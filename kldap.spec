@@ -5,23 +5,22 @@
 # Source0 file verified with key 0xDBD2CE893E2D1C87 (cfeck@kde.org)
 #
 Name     : kldap
-Version  : 18.08.0
-Release  : 2
-URL      : https://download.kde.org/stable/applications/18.08.0/src/kldap-18.08.0.tar.xz
-Source0  : https://download.kde.org/stable/applications/18.08.0/src/kldap-18.08.0.tar.xz
-Source99 : https://download.kde.org/stable/applications/18.08.0/src/kldap-18.08.0.tar.xz.sig
+Version  : 18.12.2
+Release  : 3
+URL      : https://download.kde.org/stable/applications/18.12.2/src/kldap-18.12.2.tar.xz
+Source0  : https://download.kde.org/stable/applications/18.12.2/src/kldap-18.12.2.tar.xz
+Source99 : https://download.kde.org/stable/applications/18.12.2/src/kldap-18.12.2.tar.xz.sig
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : LGPL-2.1
-Requires: kldap-lib
-Requires: kldap-license
-Requires: kldap-data
-Requires: kldap-locales
+Requires: kldap-data = %{version}-%{release}
+Requires: kldap-lib = %{version}-%{release}
+Requires: kldap-license = %{version}-%{release}
+Requires: kldap-locales = %{version}-%{release}
 BuildRequires : buildreq-cmake
 BuildRequires : buildreq-kde
-BuildRequires : cyrus-sasl-dev
+BuildRequires : extra-cmake-modules pkgconfig(libsasl2)
 BuildRequires : openldap-dev
-BuildRequires : pkgconfig(libsasl2)
 
 %description
 # KLDAP #
@@ -38,9 +37,9 @@ data components for the kldap package.
 %package dev
 Summary: dev components for the kldap package.
 Group: Development
-Requires: kldap-lib
-Requires: kldap-data
-Provides: kldap-devel
+Requires: kldap-lib = %{version}-%{release}
+Requires: kldap-data = %{version}-%{release}
+Provides: kldap-devel = %{version}-%{release}
 
 %description dev
 dev components for the kldap package.
@@ -57,8 +56,8 @@ doc components for the kldap package.
 %package lib
 Summary: lib components for the kldap package.
 Group: Libraries
-Requires: kldap-data
-Requires: kldap-license
+Requires: kldap-data = %{version}-%{release}
+Requires: kldap-license = %{version}-%{release}
 
 %description lib
 lib components for the kldap package.
@@ -81,25 +80,25 @@ locales components for the kldap package.
 
 
 %prep
-%setup -q -n kldap-18.08.0
+%setup -q -n kldap-18.12.2
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1535430433
-mkdir clr-build
+export SOURCE_DATE_EPOCH=1549854312
+mkdir -p clr-build
 pushd clr-build
 %cmake ..
-make  %{?_smp_mflags}
+make  %{?_smp_mflags} VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1535430433
+export SOURCE_DATE_EPOCH=1549854312
 rm -rf %{buildroot}
-mkdir -p %{buildroot}/usr/share/doc/kldap
-cp COPYING.LIB %{buildroot}/usr/share/doc/kldap/COPYING.LIB
+mkdir -p %{buildroot}/usr/share/package-licenses/kldap
+cp COPYING.LIB %{buildroot}/usr/share/package-licenses/kldap/COPYING.LIB
 pushd clr-build
 %make_install
 popd
@@ -189,12 +188,12 @@ popd
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/libKF5Ldap.so.5
-/usr/lib64/libKF5Ldap.so.5.9.0
+/usr/lib64/libKF5Ldap.so.5.10.2
 /usr/lib64/qt5/plugins/kf5/kio/ldap.so
 
 %files license
-%defattr(-,root,root,-)
-/usr/share/doc/kldap/COPYING.LIB
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/kldap/COPYING.LIB
 
 %files locales -f kio_ldap.lang -f libkldap5.lang
 %defattr(-,root,root,-)
