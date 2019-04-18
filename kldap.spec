@@ -5,11 +5,11 @@
 # Source0 file verified with key 0xDBD2CE893E2D1C87 (cfeck@kde.org)
 #
 Name     : kldap
-Version  : 18.12.3
-Release  : 8
-URL      : https://download.kde.org/stable/applications/18.12.3/src/kldap-18.12.3.tar.xz
-Source0  : https://download.kde.org/stable/applications/18.12.3/src/kldap-18.12.3.tar.xz
-Source99 : https://download.kde.org/stable/applications/18.12.3/src/kldap-18.12.3.tar.xz.sig
+Version  : 19.04.0
+Release  : 9
+URL      : https://download.kde.org/stable/applications/19.04.0/src/kldap-19.04.0.tar.xz
+Source0  : https://download.kde.org/stable/applications/19.04.0/src/kldap-19.04.0.tar.xz
+Source99 : https://download.kde.org/stable/applications/19.04.0/src/kldap-19.04.0.tar.xz.sig
 Summary  : LDAP access API for KDE
 Group    : Development/Tools
 License  : LGPL-2.1
@@ -81,14 +81,14 @@ locales components for the kldap package.
 
 
 %prep
-%setup -q -n kldap-18.12.3
+%setup -q -n kldap-19.04.0
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1555336111
+export SOURCE_DATE_EPOCH=1555614336
 mkdir -p clr-build
 pushd clr-build
 export CFLAGS="$CFLAGS  "
@@ -100,7 +100,7 @@ make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1555336111
+export SOURCE_DATE_EPOCH=1555614336
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/kldap
 cp COPYING.LIB %{buildroot}/usr/share/package-licenses/kldap/COPYING.LIB
@@ -193,7 +193,7 @@ popd
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/libKF5Ldap.so.5
-/usr/lib64/libKF5Ldap.so.5.10.3
+/usr/lib64/libKF5Ldap.so.5.11.0
 /usr/lib64/qt5/plugins/kf5/kio/ldap.so
 
 %files license
