@@ -6,7 +6,7 @@
 #
 Name     : kldap
 Version  : 19.04.0
-Release  : 9
+Release  : 10
 URL      : https://download.kde.org/stable/applications/19.04.0/src/kldap-19.04.0.tar.xz
 Source0  : https://download.kde.org/stable/applications/19.04.0/src/kldap-19.04.0.tar.xz
 Source99 : https://download.kde.org/stable/applications/19.04.0/src/kldap-19.04.0.tar.xz.sig
@@ -88,19 +88,22 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1555614336
+export SOURCE_DATE_EPOCH=1557021199
 mkdir -p clr-build
 pushd clr-build
-export CFLAGS="$CFLAGS  "
-export FCFLAGS="$CFLAGS  "
-export FFLAGS="$CFLAGS  "
-export CXXFLAGS="$CXXFLAGS  -std=gnu++98"
+export AR=gcc-ar
+export RANLIB=gcc-ranlib
+export NM=gcc-nm
+export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FCFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 -std=gnu++98"
 %cmake ..
 make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1555614336
+export SOURCE_DATE_EPOCH=1557021199
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/kldap
 cp COPYING.LIB %{buildroot}/usr/share/package-licenses/kldap/COPYING.LIB
