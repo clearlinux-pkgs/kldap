@@ -5,11 +5,11 @@
 # Source0 file verified with key 0xDBD2CE893E2D1C87 (cfeck@kde.org)
 #
 Name     : kldap
-Version  : 20.04.0
-Release  : 22
-URL      : https://download.kde.org/stable/release-service/20.04.0/src/kldap-20.04.0.tar.xz
-Source0  : https://download.kde.org/stable/release-service/20.04.0/src/kldap-20.04.0.tar.xz
-Source1  : https://download.kde.org/stable/release-service/20.04.0/src/kldap-20.04.0.tar.xz.sig
+Version  : 20.04.1
+Release  : 23
+URL      : https://download.kde.org/stable/release-service/20.04.1/src/kldap-20.04.1.tar.xz
+Source0  : https://download.kde.org/stable/release-service/20.04.1/src/kldap-20.04.1.tar.xz
+Source1  : https://download.kde.org/stable/release-service/20.04.1/src/kldap-20.04.1.tar.xz.sig
 Summary  : LDAP access API for KDE
 Group    : Development/Tools
 License  : LGPL-2.1
@@ -20,7 +20,13 @@ Requires: kldap-locales = %{version}-%{release}
 BuildRequires : buildreq-cmake
 BuildRequires : buildreq-kde
 BuildRequires : extra-cmake-modules pkgconfig(libsasl2)
+BuildRequires : extra-cmake-modules-data
+BuildRequires : kdoctools-dev
+BuildRequires : ki18n-dev
+BuildRequires : kio-dev
+BuildRequires : kwidgetsaddons-dev
 BuildRequires : openldap-dev
+BuildRequires : qtbase-dev
 
 %description
 # KLDAP #
@@ -40,7 +46,6 @@ Group: Development
 Requires: kldap-lib = %{version}-%{release}
 Requires: kldap-data = %{version}-%{release}
 Provides: kldap-devel = %{version}-%{release}
-Requires: kldap = %{version}-%{release}
 Requires: kldap = %{version}-%{release}
 
 %description dev
@@ -82,35 +87,34 @@ locales components for the kldap package.
 
 
 %prep
-%setup -q -n kldap-20.04.0
-cd %{_builddir}/kldap-20.04.0
+%setup -q -n kldap-20.04.1
+cd %{_builddir}/kldap-20.04.1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1587687295
+export SOURCE_DATE_EPOCH=1589844950
 mkdir -p clr-build
 pushd clr-build
-# -Werror is for werrorists
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
 export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FCFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
 export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 -std=gnu++98"
 %cmake ..
 make  %{?_smp_mflags}  VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1587687295
+export SOURCE_DATE_EPOCH=1589844950
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/kldap
-cp %{_builddir}/kldap-20.04.0/COPYING.LIB %{buildroot}/usr/share/package-licenses/kldap/9a1929f4700d2407c70b507b3b2aaf6226a9543c
+cp %{_builddir}/kldap-20.04.1/COPYING.LIB %{buildroot}/usr/share/package-licenses/kldap/9a1929f4700d2407c70b507b3b2aaf6226a9543c
 pushd clr-build
 %make_install
 popd
@@ -194,7 +198,7 @@ popd
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/libKF5Ldap.so.5
-/usr/lib64/libKF5Ldap.so.5.14.0
+/usr/lib64/libKF5Ldap.so.5.14.1
 /usr/lib64/qt5/plugins/kf5/kio/ldap.so
 
 %files license
