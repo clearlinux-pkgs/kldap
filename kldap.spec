@@ -5,11 +5,11 @@
 # Source0 file verified with key 0xDBD2CE893E2D1C87 (cfeck@kde.org)
 #
 Name     : kldap
-Version  : 20.08.3
-Release  : 27
-URL      : https://download.kde.org/stable/release-service/20.08.3/src/kldap-20.08.3.tar.xz
-Source0  : https://download.kde.org/stable/release-service/20.08.3/src/kldap-20.08.3.tar.xz
-Source1  : https://download.kde.org/stable/release-service/20.08.3/src/kldap-20.08.3.tar.xz.sig
+Version  : 20.12.0
+Release  : 28
+URL      : https://download.kde.org/stable/release-service/20.12.0/src/kldap-20.12.0.tar.xz
+Source0  : https://download.kde.org/stable/release-service/20.12.0/src/kldap-20.12.0.tar.xz
+Source1  : https://download.kde.org/stable/release-service/20.12.0/src/kldap-20.12.0.tar.xz.sig
 Summary  : LDAP access API for KDE
 Group    : Development/Tools
 License  : BSD-3-Clause LGPL-2.0 MIT
@@ -88,15 +88,15 @@ locales components for the kldap package.
 
 
 %prep
-%setup -q -n kldap-20.08.3
-cd %{_builddir}/kldap-20.08.3
+%setup -q -n kldap-20.12.0
+cd %{_builddir}/kldap-20.12.0
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1604605058
+export SOURCE_DATE_EPOCH=1607719314
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -112,13 +112,12 @@ make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1604605058
+export SOURCE_DATE_EPOCH=1607719314
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/kldap
-cp %{_builddir}/kldap-20.08.3/LICENSES/BSD-3-Clause.txt %{buildroot}/usr/share/package-licenses/kldap/9950d3fdce1cff1f71212fb5abd31453c6ee2f8c
-cp %{_builddir}/kldap-20.08.3/LICENSES/LGPL-2.0-only.txt %{buildroot}/usr/share/package-licenses/kldap/20079e8f79713dce80ab09774505773c926afa2a
-cp %{_builddir}/kldap-20.08.3/LICENSES/LGPL-2.0-or-later.txt %{buildroot}/usr/share/package-licenses/kldap/20079e8f79713dce80ab09774505773c926afa2a
-cp %{_builddir}/kldap-20.08.3/LICENSES/MIT.txt %{buildroot}/usr/share/package-licenses/kldap/a0193e3fccf86c17dc71e3f6c0ac0b535e06bea3
+cp %{_builddir}/kldap-20.12.0/LICENSES/BSD-3-Clause.txt %{buildroot}/usr/share/package-licenses/kldap/9950d3fdce1cff1f71212fb5abd31453c6ee2f8c
+cp %{_builddir}/kldap-20.12.0/LICENSES/LGPL-2.0-or-later.txt %{buildroot}/usr/share/package-licenses/kldap/20079e8f79713dce80ab09774505773c926afa2a
+cp %{_builddir}/kldap-20.12.0/LICENSES/MIT.txt %{buildroot}/usr/share/package-licenses/kldap/a0193e3fccf86c17dc71e3f6c0ac0b535e06bea3
 pushd clr-build
 %make_install
 popd
@@ -218,7 +217,7 @@ popd
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/libKF5Ldap.so.5
-/usr/lib64/libKF5Ldap.so.5.15.3
+/usr/lib64/libKF5Ldap.so.5.16.0
 /usr/lib64/qt5/plugins/kf5/kio/ldap.so
 
 %files license
