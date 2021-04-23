@@ -5,14 +5,14 @@
 # Source0 file verified with key 0xBB463350D6EF31EF (heiko@shruuf.de)
 #
 Name     : kldap
-Version  : 20.12.3
-Release  : 30
-URL      : https://download.kde.org/stable/release-service/20.12.3/src/kldap-20.12.3.tar.xz
-Source0  : https://download.kde.org/stable/release-service/20.12.3/src/kldap-20.12.3.tar.xz
-Source1  : https://download.kde.org/stable/release-service/20.12.3/src/kldap-20.12.3.tar.xz.sig
+Version  : 21.04.0
+Release  : 31
+URL      : https://download.kde.org/stable/release-service/21.04.0/src/kldap-21.04.0.tar.xz
+Source0  : https://download.kde.org/stable/release-service/21.04.0/src/kldap-21.04.0.tar.xz
+Source1  : https://download.kde.org/stable/release-service/21.04.0/src/kldap-21.04.0.tar.xz.sig
 Summary  : LDAP access API for KDE
 Group    : Development/Tools
-License  : BSD-3-Clause LGPL-2.0 MIT
+License  : BSD-3-Clause CC0-1.0 LGPL-2.0 MIT
 Requires: kldap-data = %{version}-%{release}
 Requires: kldap-lib = %{version}-%{release}
 Requires: kldap-license = %{version}-%{release}
@@ -24,10 +24,11 @@ BuildRequires : extra-cmake-modules-data
 BuildRequires : kdoctools-dev
 BuildRequires : ki18n-dev
 BuildRequires : kio-dev
-BuildRequires : kwallet-dev
 BuildRequires : kwidgetsaddons-dev
+BuildRequires : libsecret-dev
 BuildRequires : openldap-dev
 BuildRequires : qtbase-dev
+BuildRequires : qtkeychain-dev
 
 %description
 # KLDAP #
@@ -88,15 +89,15 @@ locales components for the kldap package.
 
 
 %prep
-%setup -q -n kldap-20.12.3
-cd %{_builddir}/kldap-20.12.3
+%setup -q -n kldap-21.04.0
+cd %{_builddir}/kldap-21.04.0
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1618641390
+export SOURCE_DATE_EPOCH=1619197241
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -112,12 +113,13 @@ make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1618641390
+export SOURCE_DATE_EPOCH=1619197241
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/kldap
-cp %{_builddir}/kldap-20.12.3/LICENSES/BSD-3-Clause.txt %{buildroot}/usr/share/package-licenses/kldap/9950d3fdce1cff1f71212fb5abd31453c6ee2f8c
-cp %{_builddir}/kldap-20.12.3/LICENSES/LGPL-2.0-or-later.txt %{buildroot}/usr/share/package-licenses/kldap/20079e8f79713dce80ab09774505773c926afa2a
-cp %{_builddir}/kldap-20.12.3/LICENSES/MIT.txt %{buildroot}/usr/share/package-licenses/kldap/a0193e3fccf86c17dc71e3f6c0ac0b535e06bea3
+cp %{_builddir}/kldap-21.04.0/LICENSES/BSD-3-Clause.txt %{buildroot}/usr/share/package-licenses/kldap/9950d3fdce1cff1f71212fb5abd31453c6ee2f8c
+cp %{_builddir}/kldap-21.04.0/LICENSES/CC0-1.0.txt %{buildroot}/usr/share/package-licenses/kldap/8287b608d3fa40ef401339fd907ca1260c964123
+cp %{_builddir}/kldap-21.04.0/LICENSES/LGPL-2.0-or-later.txt %{buildroot}/usr/share/package-licenses/kldap/20079e8f79713dce80ab09774505773c926afa2a
+cp %{_builddir}/kldap-21.04.0/LICENSES/MIT.txt %{buildroot}/usr/share/package-licenses/kldap/a0193e3fccf86c17dc71e3f6c0ac0b535e06bea3
 pushd clr-build
 %make_install
 popd
@@ -141,6 +143,8 @@ popd
 /usr/include/KF5/KLDAP/KLDAP/LdapClient
 /usr/include/KF5/KLDAP/KLDAP/LdapClientSearch
 /usr/include/KF5/KLDAP/KLDAP/LdapClientSearchConfig
+/usr/include/KF5/KLDAP/KLDAP/LdapClientSearchConfigReadConfigJob
+/usr/include/KF5/KLDAP/KLDAP/LdapClientSearchConfigWriteConfigJob
 /usr/include/KF5/KLDAP/KLDAP/LdapConfigWidget
 /usr/include/KF5/KLDAP/KLDAP/LdapConfigureWidget
 /usr/include/KF5/KLDAP/KLDAP/LdapConnection
@@ -150,6 +154,7 @@ popd
 /usr/include/KF5/KLDAP/KLDAP/LdapObject
 /usr/include/KF5/KLDAP/KLDAP/LdapOperation
 /usr/include/KF5/KLDAP/KLDAP/LdapSearch
+/usr/include/KF5/KLDAP/KLDAP/LdapSearchClientReadConfigServerJob
 /usr/include/KF5/KLDAP/KLDAP/LdapServer
 /usr/include/KF5/KLDAP/KLDAP/LdapUrl
 /usr/include/KF5/KLDAP/KLDAP/Ldif
@@ -159,6 +164,8 @@ popd
 /usr/include/KF5/KLDAP/kldap/ldapclient.h
 /usr/include/KF5/KLDAP/kldap/ldapclientsearch.h
 /usr/include/KF5/KLDAP/kldap/ldapclientsearchconfig.h
+/usr/include/KF5/KLDAP/kldap/ldapclientsearchconfigreadconfigjob.h
+/usr/include/KF5/KLDAP/kldap/ldapclientsearchconfigwriteconfigjob.h
 /usr/include/KF5/KLDAP/kldap/ldapconfigurewidget.h
 /usr/include/KF5/KLDAP/kldap/ldapconfigwidget.h
 /usr/include/KF5/KLDAP/kldap/ldapconnection.h
@@ -168,6 +175,7 @@ popd
 /usr/include/KF5/KLDAP/kldap/ldapobject.h
 /usr/include/KF5/KLDAP/kldap/ldapoperation.h
 /usr/include/KF5/KLDAP/kldap/ldapsearch.h
+/usr/include/KF5/KLDAP/kldap/ldapsearchclientreadconfigserverjob.h
 /usr/include/KF5/KLDAP/kldap/ldapserver.h
 /usr/include/KF5/KLDAP/kldap/ldapurl.h
 /usr/include/KF5/KLDAP/kldap/ldif.h
@@ -217,12 +225,13 @@ popd
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/libKF5Ldap.so.5
-/usr/lib64/libKF5Ldap.so.5.16.3
+/usr/lib64/libKF5Ldap.so.5.17.0
 /usr/lib64/qt5/plugins/kf5/kio/ldap.so
 
 %files license
 %defattr(0644,root,root,0755)
 /usr/share/package-licenses/kldap/20079e8f79713dce80ab09774505773c926afa2a
+/usr/share/package-licenses/kldap/8287b608d3fa40ef401339fd907ca1260c964123
 /usr/share/package-licenses/kldap/9950d3fdce1cff1f71212fb5abd31453c6ee2f8c
 /usr/share/package-licenses/kldap/a0193e3fccf86c17dc71e3f6c0ac0b535e06bea3
 
