@@ -5,11 +5,11 @@
 # Source0 file verified with key 0xBB463350D6EF31EF (heiko@shruuf.de)
 #
 Name     : kldap
-Version  : 21.12.3
-Release  : 40
-URL      : https://download.kde.org/stable/release-service/21.12.3/src/kldap-21.12.3.tar.xz
-Source0  : https://download.kde.org/stable/release-service/21.12.3/src/kldap-21.12.3.tar.xz
-Source1  : https://download.kde.org/stable/release-service/21.12.3/src/kldap-21.12.3.tar.xz.sig
+Version  : 22.04.0
+Release  : 41
+URL      : https://download.kde.org/stable/release-service/22.04.0/src/kldap-22.04.0.tar.xz
+Source0  : https://download.kde.org/stable/release-service/22.04.0/src/kldap-22.04.0.tar.xz
+Source1  : https://download.kde.org/stable/release-service/22.04.0/src/kldap-22.04.0.tar.xz.sig
 Summary  : LDAP access API for KDE
 Group    : Development/Tools
 License  : BSD-3-Clause CC0-1.0 LGPL-2.0 MIT
@@ -25,9 +25,8 @@ BuildRequires : kdoctools-dev
 BuildRequires : ki18n-dev
 BuildRequires : kio-dev
 BuildRequires : kwidgetsaddons-dev
-BuildRequires : libsecret-dev
 BuildRequires : openldap-dev
-BuildRequires : qtbase-dev
+BuildRequires : pkgconfig(libsecret-1)
 BuildRequires : qtkeychain-dev
 
 %description
@@ -88,15 +87,15 @@ locales components for the kldap package.
 
 
 %prep
-%setup -q -n kldap-21.12.3
-cd %{_builddir}/kldap-21.12.3
+%setup -q -n kldap-22.04.0
+cd %{_builddir}/kldap-22.04.0
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1646536498
+export SOURCE_DATE_EPOCH=1650803826
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -112,16 +111,16 @@ make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1646536498
+export SOURCE_DATE_EPOCH=1650803826
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/kldap
-cp %{_builddir}/kldap-21.12.3/CMakePresets.json.license %{buildroot}/usr/share/package-licenses/kldap/29fb05b49e12a380545499938c4879440bd8851e
-cp %{_builddir}/kldap-21.12.3/LICENSES/BSD-3-Clause.txt %{buildroot}/usr/share/package-licenses/kldap/9950d3fdce1cff1f71212fb5abd31453c6ee2f8c
-cp %{_builddir}/kldap-21.12.3/LICENSES/CC0-1.0.txt %{buildroot}/usr/share/package-licenses/kldap/8287b608d3fa40ef401339fd907ca1260c964123
-cp %{_builddir}/kldap-21.12.3/LICENSES/LGPL-2.0-or-later.txt %{buildroot}/usr/share/package-licenses/kldap/20079e8f79713dce80ab09774505773c926afa2a
-cp %{_builddir}/kldap-21.12.3/LICENSES/MIT.txt %{buildroot}/usr/share/package-licenses/kldap/a0193e3fccf86c17dc71e3f6c0ac0b535e06bea3
-cp %{_builddir}/kldap-21.12.3/README.md.license %{buildroot}/usr/share/package-licenses/kldap/cadc9e08cb956c041f87922de84b9206d9bbffb2
-cp %{_builddir}/kldap-21.12.3/metainfo.yaml.license %{buildroot}/usr/share/package-licenses/kldap/7ff5a7dd2c915b2b34329c892e06917c5f82f3a4
+cp %{_builddir}/kldap-22.04.0/CMakePresets.json.license %{buildroot}/usr/share/package-licenses/kldap/c085897bc39e05746ffd2d889a6e84ff1b7ae2d9
+cp %{_builddir}/kldap-22.04.0/LICENSES/BSD-3-Clause.txt %{buildroot}/usr/share/package-licenses/kldap/9950d3fdce1cff1f71212fb5abd31453c6ee2f8c
+cp %{_builddir}/kldap-22.04.0/LICENSES/CC0-1.0.txt %{buildroot}/usr/share/package-licenses/kldap/8287b608d3fa40ef401339fd907ca1260c964123
+cp %{_builddir}/kldap-22.04.0/LICENSES/LGPL-2.0-or-later.txt %{buildroot}/usr/share/package-licenses/kldap/20079e8f79713dce80ab09774505773c926afa2a
+cp %{_builddir}/kldap-22.04.0/LICENSES/MIT.txt %{buildroot}/usr/share/package-licenses/kldap/a0193e3fccf86c17dc71e3f6c0ac0b535e06bea3
+cp %{_builddir}/kldap-22.04.0/README.md.license %{buildroot}/usr/share/package-licenses/kldap/cadc9e08cb956c041f87922de84b9206d9bbffb2
+cp %{_builddir}/kldap-22.04.0/metainfo.yaml.license %{buildroot}/usr/share/package-licenses/kldap/7ff5a7dd2c915b2b34329c892e06917c5f82f3a4
 pushd clr-build
 %make_install
 popd
@@ -179,7 +178,7 @@ popd
 /usr/include/KF5/KLDAP/kldap/ldapserver.h
 /usr/include/KF5/KLDAP/kldap/ldapurl.h
 /usr/include/KF5/KLDAP/kldap/ldif.h
-/usr/include/KF5/kldap_version.h
+/usr/include/KF5/KLDAP/kldap_version.h
 /usr/lib64/cmake/KF5Ldap/KF5LdapConfig.cmake
 /usr/lib64/cmake/KF5Ldap/KF5LdapConfigVersion.cmake
 /usr/lib64/cmake/KF5Ldap/KF5LdapTargets-relwithdebinfo.cmake
@@ -189,53 +188,23 @@ popd
 
 %files doc
 %defattr(0644,root,root,0755)
-/usr/share/doc/HTML/ca/kioslave5/ldap/index.cache.bz2
-/usr/share/doc/HTML/ca/kioslave5/ldap/index.docbook
-/usr/share/doc/HTML/de/kioslave5/ldap/index.cache.bz2
-/usr/share/doc/HTML/de/kioslave5/ldap/index.docbook
 /usr/share/doc/HTML/en/kioslave5/ldap/index.cache.bz2
 /usr/share/doc/HTML/en/kioslave5/ldap/index.docbook
-/usr/share/doc/HTML/es/kioslave5/ldap/index.cache.bz2
-/usr/share/doc/HTML/es/kioslave5/ldap/index.docbook
-/usr/share/doc/HTML/et/kioslave5/ldap/index.cache.bz2
-/usr/share/doc/HTML/et/kioslave5/ldap/index.docbook
-/usr/share/doc/HTML/fr/kioslave5/ldap/index.cache.bz2
-/usr/share/doc/HTML/fr/kioslave5/ldap/index.docbook
-/usr/share/doc/HTML/gl/kioslave5/ldap/index.cache.bz2
-/usr/share/doc/HTML/gl/kioslave5/ldap/index.docbook
-/usr/share/doc/HTML/it/kioslave5/ldap/index.cache.bz2
-/usr/share/doc/HTML/it/kioslave5/ldap/index.docbook
-/usr/share/doc/HTML/ko/kioslave5/ldap/index.cache.bz2
-/usr/share/doc/HTML/ko/kioslave5/ldap/index.docbook
-/usr/share/doc/HTML/nl/kioslave5/ldap/index.cache.bz2
-/usr/share/doc/HTML/nl/kioslave5/ldap/index.docbook
-/usr/share/doc/HTML/pt/kioslave5/ldap/index.cache.bz2
-/usr/share/doc/HTML/pt/kioslave5/ldap/index.docbook
-/usr/share/doc/HTML/pt_BR/kioslave5/ldap/index.cache.bz2
-/usr/share/doc/HTML/pt_BR/kioslave5/ldap/index.docbook
-/usr/share/doc/HTML/ru/kioslave5/ldap/index.cache.bz2
-/usr/share/doc/HTML/ru/kioslave5/ldap/index.docbook
-/usr/share/doc/HTML/sr/kioslave5/ldap/index.cache.bz2
-/usr/share/doc/HTML/sr/kioslave5/ldap/index.docbook
-/usr/share/doc/HTML/sv/kioslave5/ldap/index.cache.bz2
-/usr/share/doc/HTML/sv/kioslave5/ldap/index.docbook
-/usr/share/doc/HTML/uk/kioslave5/ldap/index.cache.bz2
-/usr/share/doc/HTML/uk/kioslave5/ldap/index.docbook
 
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/libKF5Ldap.so.5
-/usr/lib64/libKF5Ldap.so.5.19.3
+/usr/lib64/libKF5Ldap.so.5.20.0
 /usr/lib64/qt5/plugins/kf5/kio/ldap.so
 
 %files license
 %defattr(0644,root,root,0755)
 /usr/share/package-licenses/kldap/20079e8f79713dce80ab09774505773c926afa2a
-/usr/share/package-licenses/kldap/29fb05b49e12a380545499938c4879440bd8851e
 /usr/share/package-licenses/kldap/7ff5a7dd2c915b2b34329c892e06917c5f82f3a4
 /usr/share/package-licenses/kldap/8287b608d3fa40ef401339fd907ca1260c964123
 /usr/share/package-licenses/kldap/9950d3fdce1cff1f71212fb5abd31453c6ee2f8c
 /usr/share/package-licenses/kldap/a0193e3fccf86c17dc71e3f6c0ac0b535e06bea3
+/usr/share/package-licenses/kldap/c085897bc39e05746ffd2d889a6e84ff1b7ae2d9
 /usr/share/package-licenses/kldap/cadc9e08cb956c041f87922de84b9206d9bbffb2
 
 %files locales -f kio_ldap.lang -f libkldap5.lang
